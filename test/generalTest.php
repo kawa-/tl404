@@ -10,8 +10,7 @@
  *
  * 注意点:
  * - データはすべて消える (IS_DEBUG が TRUE の場合)
- * - define('LIMIT', 3); で get_random 系の取ってくる数が決定されるが、この値が小さすぎる場合はテストで不具合が生じることがある
- * (制限数 > testSubscribeメソッドでのsubscribe数 となる必要がある)
+ * - get_random_subscribers/get_random_subscriptionsはdiscon
  *
  * テスト項目:
  * - barusu
@@ -19,12 +18,16 @@
  * - unsubscribe
  * - get_all_subscriptions
  * - get_all_subscribers
- * - get_random_subscriptions
- * - get_random_subscribers
+ * - get_number_of_subscriptions
+ * - get_number_of_subscribers
+ * - get_subscriptions
+ * - get_subscribers
  * - is_my_subscriber
  * - is_my_subscription
  * - put (+ get_timeline)
- * - distribute (+ get_timeline)
+ * - publish (+ get_timeline)
+ * - delete_id
+ * - delete_tl
  */
 require dirname(__FILE__) . '/../lib/bootstrap4test.php';
 
@@ -78,17 +81,45 @@ class generalTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(array(2, 3, 4) === $subscriptions);
 	}
 
-	public function testGetRandomSubscriptions() {
-		$res = httpPostWithDecode('get_random_subscriptions', array('sid' => 2));
-		$subscriptions = $res['result'];
-		$this->assertTrue(in_array("1", $subscriptions));
+	public function testGetNumberOfSubscriptions() {
+		$res = httpPostWithDecode('get_number_of_subscriptions', array('sid' => 2));
+		$this->assertEquals($res['result'], 1);
 	}
 
-	public function testGetRandomSubscribers() {
-		$res = httpPostWithDecode('get_random_subscribers', array('sid' => 1));
-		$subscribers = $res['result'];
-		$this->assertTrue(in_array("2", $subscribers));
+	public function testGetNumberOfSubscribers() {
+		$res = httpPostWithDecode('get_number_of_subscribers', array('sid' => 1));
+		$this->assertEquals($res['result'], 3);
 	}
+
+	public function testGetSubscriptions() {
+		$res = httpPostWithDecode('get_subscriptions', array('sid' => 2, 'ofs' => 0, 'cnt' => 1));
+		$subscriptions = $res['result'];
+		$this->assertTrue(array(1) === $subscriptions);
+	}
+
+	/**
+	 * 最新のものから2件だけ取得 (testGetAllSubscribersの方は、全件、つまり3件取得している。そこが相違点)。
+	 * arrayの順番に注目、新しいものがindex=0に入ってくるので、testGetAllSubscribersとは逆順になっている。
+	 */
+	public function testGetSubscribers() {
+		$res = httpPostWithDecode('get_subscribers', array('sid' => 1, 'ofs' => 0, 'cnt' => 2));
+		$subscriptions = $res['result'];
+		$this->assertTrue(array(4, 3) === $subscriptions);
+	}
+
+	/*
+	  public function testGetRandomSubscriptions() {
+	  $res = httpPostWithDecode('get_random_subscriptions', array('sid' => 2));
+	  $subscriptions = $res['result'];
+	  $this->assertTrue(in_array("1", $subscriptions));
+	  }
+
+	  public function testGetRandomSubscribers() {
+	  $res = httpPostWithDecode('get_random_subscribers', array('sid' => 1));
+	  $subscribers = $res['result'];
+	  $this->assertTrue(in_array("2", $subscribers));
+	  }
+	 */
 
 	public function testIsMySubscriber() {
 		/* id:1 の購読者のうちの一人は id:2 かどうか */
@@ -110,16 +141,45 @@ class generalTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($res2['result'][0] === $text);
 	}
 
-	public function testDistribute() {
-		$text = 'id:abcdefghijk';
-		$res1 = httpPostWithDecode('distribute', array('sid' => 1, 'tlid' => 0, 'elm' => $text));
+	public function testPublish() {
+		$text = 'id:' . uniqid();
+		$res1 = httpPostWithDecode('publish', array('sid' => 1, 'tlid' => 0, 'elm' => $text));
 		$this->assertTrue($res1['result']);
+		sleep(1);
 		$res2 = httpPostWithDecode('get_timeline', array('sid' => 2, 'tlid' => 0));
 		$this->assertTrue($res2['result'][0] === $text);
 		$res3 = httpPostWithDecode('get_timeline', array('sid' => 3, 'tlid' => 0));
 		$this->assertTrue($res3['result'][0] === $text);
 		$res4 = httpPostWithDecode('get_timeline', array('sid' => 4, 'tlid' => 0));
 		$this->assertTrue($res4['result'][0] === $text);
+	}
+
+	public function testDeleteID() {
+		httpPostWithDecode('subscribe', array('sid' => 100, 'tid' => 201));
+		httpPostWithDecode('subscribe', array('sid' => 100, 'tid' => 202));
+		httpPostWithDecode('subscribe', array('sid' => 100, 'tid' => 203));
+		httpPostWithDecode('subscribe', array('sid' => 201, 'tid' => 100));
+		httpPostWithDecode('subscribe', array('sid' => 202, 'tid' => 100));
+		httpPostWithDecode('subscribe', array('sid' => 203, 'tid' => 100));
+		$res = httpPostWithDecode('delete_id', array('sid' => 100));
+		$this->assertEquals(20000, $res['code']);
+		$res2 = httpPostWithDecode('is_my_subscriber', array('sid' => 100, 'tid' => 1001));
+		$this->assertFalse($res2['result']);
+	}
+
+	public function testDeleteTL() {
+		/* generate TL */
+		httpPostWithDecode('put', array('sid' => 100, 'tlid' => 1001, 'elm' => 'foobar1001'));
+		httpPostWithDecode('put', array('sid' => 100, 'tlid' => 1002, 'elm' => 'foobar1002'));
+		httpPostWithDecode('put', array('sid' => 100, 'tlid' => 1003, 'elm' => 'foobar1003'));
+
+		/* delete TL */
+		$res1001 = httpPostWithDecode('delete_tl', array('sid' => 100, 'tlid' => 1001));
+		$res1002 = httpPostWithDecode('delete_tl', array('sid' => 100, 'tlid' => 1002));
+		$res1003 = httpPostWithDecode('delete_tl', array('sid' => 100, 'tlid' => 1003));
+		$this->assertTrue($res1001['result']);
+		$this->assertTrue($res1002['result']);
+		$this->assertTrue($res1003['result']);
 	}
 
 }

@@ -14,8 +14,8 @@ function get_all_subscriptions() {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
 
-		$res = $redis->sMembers('subscription:' . $sid);
-		if (empty($res)) {
+		$res = DBH::getAllSubscriptions($redis, $sid);
+		if ($res === FALSE) {
 			Bye::ifNoSubscriptions($sid);
 		}
 

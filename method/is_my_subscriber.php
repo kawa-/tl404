@@ -19,7 +19,7 @@ function is_my_subscriber() {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
 
-		$res = $redis->sIsMember('subscriber:' . $sid, $tid) ? TRUE : FALSE;
+		$res = DBH::isMySubscriber($redis, $sid, $tid);
 
 		Bye::ifSuccess($res);
 	} catch (RedisException $rexc) {

@@ -19,11 +19,9 @@ function subscribe() {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
 
-		$res = $redis->sAdd('subscription:' . $sid, $tid);
-		if ($res === 0) {
+		if (DBH::subscribe($redis, $sid, $tid) === FALSE) {
 			Bye::ifAlreadySubscribing($sid, $tid);
 		}
-		$redis->sAdd('subscriber:' . $tid, $sid);
 
 		Bye::ifSuccess(TRUE);
 	} catch (RedisException $rexc) {

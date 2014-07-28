@@ -13,9 +13,7 @@ function barusu() {
 	try {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
-
-		$redis->flushAll();
-
+		DBH::deleteAll($redis);
 		Bye::ifSuccess('BARUSU!!!');
 	} catch (RedisException $rexc) {
 		Bye::ifRedisDown($rexc->getMessage());

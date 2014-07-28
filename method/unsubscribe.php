@@ -19,11 +19,9 @@ function unsubscribe() {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
 
-		$res = $redis->sRem('subscription:' . $sid, $tid);
-		if ($res === 0) {
+		if (DBH::unsubscribe($redis, $sid, $tid) === FALSE) {
 			Bye::ifNotSubscribing($sid, $tid);
 		}
-		$redis->sRem('subscriber:' . $tid, $sid);
 
 		Bye::ifSuccess(TRUE);
 	} catch (RedisException $rexc) {

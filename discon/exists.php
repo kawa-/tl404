@@ -1,6 +1,6 @@
 <?php
 
-function get_random_subscriptions() {
+function exists() {
 	if (!isset($_POST[PARAM_SOURCE_ID]) or
 		!is_numeric($_POST[PARAM_SOURCE_ID]) or
 		(int) $_POST[PARAM_SOURCE_ID] < 0
@@ -9,17 +9,18 @@ function get_random_subscriptions() {
 	}
 
 	$sid = (int) $_POST[PARAM_SOURCE_ID];
+	$bucket_id = (int) floor($sid / BUCKET_SIZE);
 
 	try {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
+		$res = $redis->sIsMember('bucket:' . $bucket_id, $sid);
 
-		$res = $redis->sRandMember('subscription:' . $sid, LIMIT);
-		if (empty($res)) {
-			Bye::ifNoSubscriptions($sid);
+		if ($res === FALSE) {
+			Bye::ifIDNotRegistered($sid);
 		}
 
-		Bye::ifSuccess(array_map('intval', $res));
+		Bye::ifSuccess(array(TRUE));
 	} catch (RedisException $rexc) {
 		Bye::ifRedisDown($rexc->getMessage());
 	}

@@ -10,6 +10,18 @@ class Bye {
 		self::outputFailure(40001, 'Invalid Params.');
 	}
 
+	static function ifInvalidLimit() {
+		self::outputFailure(40002, 'Invalid lim.');
+	}
+
+	static function ifInvalidOffset() {
+		self::outputFailure(40003, 'Invalid ofs (offset).');
+	}
+
+	static function ifInvalidCount() {
+		self::outputFailure(40004, 'Invalid count.');
+	}
+
 	static function ifAlreadySubscribing($sid, $tid) {
 		self::outputFailure(40100, "id:" . $sid . " is already subscribing to id:" . $tid . ".");
 	}
@@ -30,6 +42,14 @@ class Bye {
 		self::outputFailure(59000, 'Internal DB Down. ' . $msg);
 	}
 
+	static function ifRabbitMQDown($msg) {
+		self::outputFailure(59100, 'Internal RabbitMQ Down. ' . $msg);
+	}
+
+	static function ifGeneralError($msg) {
+		self::outputFailure(59999, 'Unknown Error. Detail: ' . $msg);
+	}
+
 	static function ifNoSubscriptions($sid) {
 		self::outputFailure(60100, 'id:' . $sid . ' has no subscriptions.');
 	}
@@ -40,6 +60,10 @@ class Bye {
 
 	static function ifTimelineEmpty() {
 		self::outputFailure(60200, 'An empty timeline.');
+	}
+
+	static function ifTimelineNotExist() {
+		self::outputFailure(60201, 'The timeline does not exist.');
 	}
 
 	static function ifBarusuDisabledUnderDebugMode() {

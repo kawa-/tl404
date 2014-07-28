@@ -20,7 +20,7 @@ function put() {
 	try {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
-		$redis->rPush($sid . ":" . $tlid, $elm);
+		DBH::putElmOnTL($redis, $sid, $tlid, $elm);
 		Bye::ifSuccess(TRUE);
 	} catch (RedisException $rexc) {
 		Bye::ifRedisDown($rexc->getMessage());
