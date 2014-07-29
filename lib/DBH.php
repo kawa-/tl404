@@ -8,9 +8,14 @@ class DBH {
 	}
 
 	static function subscribe(Redis $redis, $sid, $tid) {
+		$num = $redis->zCard('subscription:' . $sid);
+		if ($num >= MAX_SUBSCRIPTIONS) {
+			return -1;
+		}
+
 		$res = $redis->zAdd('subscription:' . $sid, time(), $tid);
 		if ($res === 0) {
-			return FALSE;
+			return 0;
 		}
 		$redis->zAdd('subscriber:' . $tid, time(), $sid);
 		return TRUE;
@@ -103,15 +108,64 @@ class DBH {
 	}
 
 	static function putElmOnTL(Redis $redis, $sid, $tlid, $elm) {
-		$redis->rPush($sid . ":" . $tlid, $elm);
+		$redis->lPush($sid . ":" . $tlid, $elm);
 	}
 
-	static function distribute(Redis $redis, $subscribers, $tlid, $elm) {
+	static function distribute(Redis $redis, $subscribers, $sid, $tlid, $elm) {
 		$pipe = $redis->multi(Redis::PIPELINE);
 		foreach ($subscribers as $subscriber_id) {
-			$pipe->rPush($subscriber_id . ":" . $tlid, $elm);
+			$pipe->lPush($subscriber_id . ":" . $tlid, $elm);
+		}
+		$pipe->lPush($sid . ":" . $tlid, $elm);
+		$pipe->exec();
+	}
+
+	static function trimTLs(Redis $redis, Array $tlids, $sid) {
+		$pipe = $redis->multi(Redis::PIPELINE);
+		foreach ($tlids as $tlid) {
+			$pipe->lTrim($sid . ":" . $tlid, 0, LIMIT_TL_ELMS - 1);
 		}
 		$pipe->exec();
+	}
+
+	static function registerID(Redis $redis, $sid) {
+		$res = $redis->zAdd('registered_ids', time(), $sid);
+		if ($res === 0) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	static function unregisterID(Redis $redis, $sid) {
+		$res = $redis->zRem('registered_ids', time(), $sid);
+		if ($res === 0) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	static function regisiterTLID(Redis $redis, $tlid) {
+		$res = $redis->sAdd('registered_tlids', $tlid);
+		if ($res === 0) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	static function unregisterTLID(Redis $redis, $tlid) {
+		$res = $redis->sRem('registered_tlids', $tlid);
+		if ($res === 0) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	static function getAllRegisteredID(Redis $redis) {
+		return $redis->zRange('registered_ids', 0, -1);
+	}
+
+	static function getAllRegisteredTLID(Redis $redis) {
+		return $redis->sMembers('registered_tlids');
 	}
 
 	static function deleteTL(Redis $redis, $sid, $tlid) {
@@ -123,14 +177,13 @@ class DBH {
 	}
 
 	static function deleteAllTLByID(Redis $redis, $sid) {
-		$tls_to_be_deleted = $redis->keys($sid . ':*');
-		if (!empty($tls_to_be_deleted)) {
-			$pipe = $redis->multi(Redis::PIPELINE);
-			foreach ($tls_to_be_deleted as $tl) {
-				$pipe->del($tl);
-			}
-			$pipe->exec();
+		$tlids = $redis->sMembers('registered_tlids');
+
+		$pipe = $redis->multi(Redis::PIPELINE);
+			foreach ($tlids as $tlid) {
+				$pipe->del($sid . ":" . $tlid);
 		}
+		$pipe->exec();
 	}
 
 	static function deleteIDFromSubscribers(Redis $redis, $sid) {

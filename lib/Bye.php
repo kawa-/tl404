@@ -3,7 +3,7 @@
 class Bye {
 
 	static function ifInvalidMethod() {
-		self::outputFailure(40000, 'Invalid Method.');
+		self::outputFailure(40000, 'Invalid Method. Visit readme.html if you have no idea.');
 	}
 
 	static function ifInvalidParams() {
@@ -19,7 +19,7 @@ class Bye {
 	}
 
 	static function ifInvalidCount() {
-		self::outputFailure(40004, 'Invalid count.');
+		self::outputFailure(40004, 'Invalid cnt (count).');
 	}
 
 	static function ifAlreadySubscribing($sid, $tid) {
@@ -30,12 +30,24 @@ class Bye {
 		self::outputFailure(40101, "id:" . $sid . " is NOT subscribing to id:" . $tid . ".");
 	}
 
+	static function ifTooManySubscribing($sid) {
+		self::outputFailure(40102, "id:" . $sid . " reached the subscription limit (" . MAX_SUBSCRIPTIONS . ").");
+	}
+
 	static function ifIDAlreadyRegistered($sid) {
 		self::outputFailure(40200, "id:" . $sid . " is already registered.");
 	}
 
 	static function ifIDNotRegistered($sid) {
 		self::outputFailure(40201, "id:" . $sid . " is NOT registered.");
+	}
+
+	static function ifTLIDAlreadyRegistered($tlid) {
+		self::outputFailure(40300, "tlid:" . $tlid . " is already registered.");
+	}
+
+	static function ifTLIDNotRegistered($tlid) {
+		self::outputFailure(40301, "tlid:" . $tlid . " is NOT registered.");
 	}
 
 	static function ifRedisDown($msg) {

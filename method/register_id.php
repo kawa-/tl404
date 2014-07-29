@@ -1,6 +1,6 @@
 <?php
 
-function delete_id() {
+function register_id() {
 	if (!isset($_POST[PARAM_SOURCE_ID]) or
 		!is_numeric($_POST[PARAM_SOURCE_ID]) or
 		(int) $_POST[PARAM_SOURCE_ID] < 0
@@ -14,17 +14,10 @@ function delete_id() {
 		$redis = new Redis();
 		$redis->connect(REDIS_HOST, REDIS_PORT, REDIS_TIMEOUT);
 
-		/* TL の削除 */
-		DBH::deleteAllTLByID($redis, $sid);
-
-		/* subscriber の削除 */
-		DBH::deleteIDFromSubscribers($redis, $sid);
-
-		/* subscription の削除 */
-		DBH::deleteIDFromSubscriptions($redis, $sid);
-
-		/* registered_ids から削除 */
-		DBH::unregisterID($redis, $sid);
+		$res = DBH::registerID($redis, $sid);
+		if ($res === FALSE) {
+			Bye::ifIDAlreadyRegistered($sid);
+		}
 
 		Bye::ifSuccess(TRUE);
 	} catch (RedisException $rexc) {

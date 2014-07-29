@@ -15,15 +15,19 @@ $methods = array(
 	'is_my_subscription',
 	'publish',
 	'put',
+	'register_id',
+	'register_tlid',
 	'subscribe',
+	'unregister_tlid',
 	'unsubscribe',
 );
 
-define('IS_DEBUG', TRUE); /* TRUE => DEBUG, FALSE => PRODUCTION */
-define('LIMIT', 3); /* # of contents that you can get in one query like "get_random_subscribers" */
-define('LIMIT_COUNT', 5);
+define('IS_DEBUG', TRUE); /* TRUE => DEBUG, FALSE => PRODUCTION. if TRUE, BARUSU command is available */
+define('LIMIT_COUNT', 5); /* The limit to take ids in get_subscribers/get_subscriptions */
+define('LIMIT_TL_ELMS', 5); /* The limit of elements of a timeline */
 define('MAX_ELEMENT_SIZE', 256); /* The restriction of the element size */
-
+define('MAX_SUBSCRIPTIONS', 10); /* The number you can follow */
+define('INTERVAL_SECONDS', 3); /* The interval second of trimer.php */
 define('PARAM_SOURCE_ID', 'sid');
 define('PARAM_TARGET_ID', 'tid');
 define('PARAM_LIMIT', 'lim');
@@ -55,6 +59,9 @@ require dirname(__FILE__) . '/../method/is_my_subscriber.php';
 require dirname(__FILE__) . '/../method/is_my_subscription.php';
 require dirname(__FILE__) . '/../method/publish.php';
 require dirname(__FILE__) . '/../method/put.php';
+require dirname(__FILE__) . '/../method/register_id.php';
+require dirname(__FILE__) . '/../method/register_tlid.php';
 require dirname(__FILE__) . '/../method/subscribe.php';
+require dirname(__FILE__) . '/../method/unregister_tlid.php';
 require dirname(__FILE__) . '/../method/unsubscribe.php';
 

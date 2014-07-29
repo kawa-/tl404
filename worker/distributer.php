@@ -34,7 +34,7 @@ try {
 					if ($subscribers === FALSE) {
 						echo "[WARNING] OK, but there is no subscribers.\n";
 					} else {
-						DBH::distribute($redis, $subscribers, $tlid, $elm);
+						DBH::distribute($redis, $subscribers, $sid, $tlid, $elm);
 					}
 					echo "[SUCCESS] Done", "\n";
 					$msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);

@@ -1,0 +1,2129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0; }
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+ul :last-child, ol :last-child {
+  margin-bottom: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      text-align: left;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+    
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0px auto;
+    }
+}
+</style>
+<title>TL404</title>
+
+</head>
+<body>
+<h1>TL404</h1>
+
+<p>タイムライン生成支援の API</p>
+
+<h2>動作環境</h2>
+
+<ul>
+<li><a href="http://redis.io/">Redis</a></li>
+<li><a href="http://www.rabbitmq.com/">RabbitMQ</a></li>
+<li><a href="http://www.php.net/">PHP</a> (>= 5.3)</li>
+<li><a href="http://stedolan.github.io/jq/">jq</a> (optional)</li>
+</ul>
+
+
+<h2>インストール方法</h2>
+
+<pre><code>##### Redis をインストールして立ち上げ #####
+$ cd tl404
+$ mkdir redis
+$ wget http://download.redis.io/releases/redis-2.8.13.tar.gz
+$ tar zxvf redis-2.8.13.tar.gz
+$ rm *.gz
+$ cd redis-2.8.13
+$ make
+$ ./src/redis-server --port 9736
+
+##### RabbitMQ をインストールして立ち上げ #####
+# Mac OS X での方法を以下に掲載。Linux 等その他 OS については公式ドキュメントを参照 (http://www.rabbitmq.com/download.html)
+$ cd tl404
+$ mkdir rabbitmq
+$ cd rabbitmq/
+$ wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.3.4/rabbitmq-server-mac-standalone-3.3.4.tar.gz
+$ tar zxvf rabbitmq-server-mac-standalone-3.3.4.tar.gz
+$ rm *.gz
+$ cd rabbitmq_server-3.3.4
+$ ./sbin/rabbitmq-server
+
+##### PHP の環境構築 #####
+# ライブラリのインストール
+$ sudo pecl install redis
+# 存在しているか確認
+$ $ php -m | grep redis
+# amqplib のインストール
+$ cd tl404/lib
+$ vi composer.json
+$ cat composer.json
+{
+  "require": {
+      "videlalvaro/php-amqplib": "2.2.*"
+  }
+}
+$ composer.phar install
+
+##### API を立ち上げ #####
+$ cd tl404
+$ cd pub
+$ php -S localhost:9080
+
+##### worker/distributer.php を立ち上げ (複数ワーカーOK) #####
+$ cd tl404/worker
+$ php distributer.php
+
+##### worker/trimer.php を立ち上げ (1ワーカーを推奨。複数ワーカーは非推奨) #####
+$ cd tl404/worker
+$ php trimmer.php
+
+##### 終了 #####
+# RabbitMQ の終了
+$ ./sbin/rabbitmqctl stop
+</code></pre>
+
+<h2>API</h2>
+
+<h3>一覧</h3>
+
+<p>API 一覧を示す。sid = source id, tid = target id, lim = limit, tlid = timeline id, ofs = offset, cnt = count の意味である。tlid については、たとえば 0:ホームタイムライン、1:シングルタイムライン、2:お気に入りタイムライン、3:イベントタイムライン、などと割り当てることを想定している。</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">method</th>
+<th align="center">動作</th>
+<th align="center">必須パラメータ</th>
+<th align="center">追加パラメータ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">barusu</td>
+<td align="center">全てのデータを削除</td>
+<td align="center">barusu</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">subscribe</td>
+<td align="center">sid が tid を購読</td>
+<td align="center">sid, tid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">unsubscribe</td>
+<td align="center">sid が tid の購読を解除</td>
+<td align="center">sid, tid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">get_all_subscriptions</td>
+<td align="center">sid が購読している ID をすべて取得</td>
+<td align="center">sid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">get_all_subscribers</td>
+<td align="center">sid を購読している ID をすべて取得</td>
+<td align="center">sid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">get_subscriptions</td>
+<td align="center">sid が 購読している ID を ofs から cnt 件だけ取得</td>
+<td align="center">sid</td>
+<td align="center">ofs, cnt</td>
+</tr>
+<tr>
+<td align="center">get_subscribers</td>
+<td align="center">sid を 購読している ID を ofs から cnt 件だけ取得</td>
+<td align="center">sid</td>
+<td align="center">ofs, cnt</td>
+</tr>
+<tr>
+<td align="center">get_number_of_subscriptions</td>
+<td align="center">sid の購読数</td>
+<td align="center">sid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">get_number_of_subscribers</td>
+<td align="center">sid の購読者数</td>
+<td align="center">sid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">get_timeline</td>
+<td align="center">sid の tlid 番の Timeline を取得</td>
+<td align="center">sid, tlid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">is_my_subscription</td>
+<td align="center">tid は sid が購読しているかどうか</td>
+<td align="center">sid, tid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">is_my_subscriber</td>
+<td align="center">tid は sid の購読者かどうか</td>
+<td align="center">sid, tid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">put</td>
+<td align="center">sid の tlid 番の Timeline に elm を追加</td>
+<td align="center">sid, tlid, elm</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">publish</td>
+<td align="center">sid を購読している id の tlid 番の Timeline に elm を追加</td>
+<td align="center">sid, tlid, elm</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">delete_id</td>
+<td align="center">sid の 全ての Timeline、購読・購読者関係を削除</td>
+<td align="center">sid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">delete_tl</td>
+<td align="center">sid の tlid番の Timeline を削除</td>
+<td align="center">sid, tlid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">register_id</td>
+<td align="center">sid を登録して、掃除対象とする</td>
+<td align="center">sid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">register_tlid</td>
+<td align="center">tlid を登録して、掃除対象とする</td>
+<td align="center">tlid</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">unregister_tlid</td>
+<td align="center">tlid の登録を解除</td>
+<td align="center">tlid</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>15分ツアー</h3>
+
+<p>ひとまず全ての API を使ってみて全容を把握する具体例。ターミナルで以下のようにコマンドを打っていけばよい。</p>
+
+<pre><code>########## 全てのデータを削除 (barusu) ##########
+$ curl -d 'method=barusu&amp;barusu=BARUSU!!!' localhost:9080 | jq "."
+{
+  "result": "BARUSU!!!",
+  "message": "OK",
+  "code": 20000
+}
+
+########## sid:1 が tid:2,3,4,5 を購読 (subscribe) ##########
+$ curl -d 'method=subscribe&amp;sid=1&amp;tid=2' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=subscribe&amp;sid=1&amp;tid=3' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=subscribe&amp;sid=1&amp;tid=4' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=subscribe&amp;sid=1&amp;tid=5' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## sid:1 が tid:5 の購読をやめる (unsubscribe) ##########
+$ curl -d 'method=unsubscribe&amp;sid=1&amp;tid=5' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## sid:1 が購読している ID をすべて取得 (get_all_subscriptions) ##########
+$ curl -d 'method=get_all_subscriptions&amp;sid=1' localhost:9080 | jq "."
+{
+  "result": [
+    2,
+    3,
+    4
+  ],
+  "message": "OK",
+  "code": 20000
+}
+
+########## sid:2 を購読している ID をすべて取得 (get_all_subscribers) ##########
+$ curl -d 'method=get_all_subscribers&amp;sid=2' localhost:9080 | jq "."
+{
+  "result": [
+    1
+  ],
+  "message": "OK",
+  "code": 20000
+}
+
+########## sid:1 が購読している ID の最新を高々2件を取得 (get_subscriptions) ##########
+$ curl -d 'method=get_subscriptions&amp;sid=1&amp;ofs=0&amp;cnt=2' localhost:9080 | jq "."
+{
+  "result": [
+    4,
+    3
+  ],
+  "message": "OK",
+  "code": 20000
+}
+
+########## sid:2 を購読している ID の最新を高々2件取得 (get_random_subscribers) ##########
+$ curl -d 'method=get_subscribers&amp;sid=2&amp;ofs=0&amp;cnt=2' localhost:9080 | jq "."
+{
+  "result": [
+    1
+  ],
+  "message": "OK",
+  "code": 20000
+}
+
+
+########## id:1 の購読数 (get_number_of_subscriptions) ##########
+$ curl -d 'method=get_number_of_subscriptions&amp;sid=1' localhost:9080 | jq "."
+{
+  "result": 3,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:2 の購読者数 (get_number_of_subscribers) ##########
+$ curl -d 'method=get_number_of_subscribers&amp;sid=2' localhost:9080 | jq "."
+{
+  "result": 1,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:1 は id:2 の購読者かどうか (is_my_subscriber) ##########
+$ curl -d 'method=is_my_subscriber&amp;sid=2&amp;tid=1' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## tid は sid が購読しているかどうか (is_my_subscription) ##########
+$ curl -d 'method=is_my_subscription&amp;sid=1&amp;tid=2' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:1 の tlid:1 番の Timeline に ##########
+##########  elm: "uniqid:53a8f8d8e6453" を追加 (put) ##########
+$ curl -d 'method=put&amp;sid=1&amp;tlid=1&amp;elm=uniqid:53a8f8d8e6453' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+##########  もう一度、elm: "uniqid:53a8f8d8e6453" を追加 (put) ##########
+$ curl -d 'method=put&amp;sid=1&amp;tlid=1&amp;elm=uniqid:53a8f8fe0e95c' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:1 の tlid:1 番の Timeline を取得 (get_timeline) ##########
+########## (先の2回の put が反映されているか確認) ##########
+$ curl -d 'method=get_timeline&amp;sid=1&amp;tlid=1' localhost:9080 | jq "."
+{
+  "result": [
+    "uniqid:53a8f8d8e6453",
+    "uniqid:53a8f8fe0e95c"
+  ],
+  "message": "OK",
+  "code": 20000
+}
+
+######### id:4 を購読している id群(今回は id:1 のみ) の tlid 番の Timeline に elm を追加 (publish) ##########
+$ curl -d 'method=publish&amp;sid=4&amp;tlid=1&amp;elm=uniqid:53a8fc605a7cd' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:1 の tlid:1 番の Timeline を取得 (get_timeline) ##########
+########## (先の2回の put と1回の publish が反映されているか確認) ##########
+$ curl -d 'method=get_timeline&amp;sid=1&amp;tlid=1' localhost:9080 | jq "."
+{
+  "result": [
+    "uniqid:53a8f8d8e6453",
+    "uniqid:53a8f8fe0e95c",
+    "uniqid:53a8fc605a7cd"
+  ],
+  "message": "OK",
+  "code": 20000
+}
+
+######### sid の tlid番の Timeline を削除 (delete_tl) #########
+$ curl -d 'method=delete_tl&amp;sid=1&amp;tlid=1' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:1 の tlid:1 番の Timeline を取得 (get_timeline) ##########
+########## (先の削除が反映されているか確認)  ##########
+
+$ curl -d 'method=get_timeline&amp;sid=1&amp;tlid=1' localhost:9080 | jq "."
+{
+  "message": "An empty timeline.",
+  "code": 60200
+}
+
+########## id:1 の 全ての Timeline、購読・購読者関係を削除 (delete_id) ##########
+$ curl -d 'method=delete_id&amp;sid=1' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## id:1 は id:2 の購読者かどうか判定 (is_my_subscriber) ##########
+########## (id:1 は削除されたので、購読者ではないはず) #########
+$ curl -d 'method=is_my_subscriber&amp;sid=2&amp;tid=1' localhost:9080 | jq "."
+{
+  "result": false,
+  "message": "OK",
+  "code": 20000
+}
+
+########## sidを登録して、掃除対象にする (register された ID 一覧は現時点では取れない。削除については delete_id で反映) #########
+$ curl -d 'method=register_id&amp;sid=1' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=register_id&amp;sid=2' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=register_id&amp;sid=3' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## tlid を登録して、掃除対象に設定 ##########
+$ curl -d 'method=register_tlid&amp;tlid=0' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=register_tlid&amp;tlid=1' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+$ curl -d 'method=register_tlid&amp;tlid=2' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+
+########## tlid の登録を解除 ##########
+$ curl -d 'method=unregister_tlid&amp;tlid=2' localhost:9080 | jq "."
+{
+  "result": true,
+  "message": "OK",
+  "code": 20000
+}
+</code></pre>
+
+<h3>設定</h3>
+
+<h4>アプリケーション</h4>
+
+<p>./lib/bootstap.php で様々な設定が可能。</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">項目</th>
+<th align="center">説明</th>
+<th align="center">例 (開発)</th>
+<th align="center">例 (運用)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">IS_DEBUG</td>
+<td align="center">デバッグモードかどうか。デバッグモードだと全削除コマンド(barusu)が使用可能</td>
+<td align="center">define('IS_DEBUG', TRUE)</td>
+<td align="center">define('IS_DEBUG', FALSE)</td>
+</tr>
+<tr>
+<td align="center">LIMIT_COUNT</td>
+<td align="center">get_subscriptions/get_subscribers で一度に取得可能な要素の数の制限</td>
+<td align="center">define('LIMIT_COUNT', 5)</td>
+<td align="center">define('LIMIT_COUNT', 100)</td>
+</tr>
+<tr>
+<td align="center">LIMIT_TL_ELMS</td>
+<td align="center">一つの TL で保持する要素数。trimmer は、この値を見て TL を定期的にトリミング</td>
+<td align="center">define('LIMIT_TL_ELMS', 5)</td>
+<td align="center">define('LIMIT_TL_ELMS', 800)</td>
+</tr>
+<tr>
+<td align="center">MAX_ELEMENT_SIZE</td>
+<td align="center">put や publish の elm 要素の長さの制限</td>
+<td align="center">define('MAX_ELEMENT_SIZE', 256)</td>
+<td align="center">define('MAX_ELEMENT_SIZE', 64)</td>
+</tr>
+<tr>
+<td align="center">MAX_SUBSCRIPTIONS</td>
+<td align="center">一つの ID が購読できる要素数</td>
+<td align="center">define('MAX_SUBSCRIPTIONS', 10)</td>
+<td align="center">define('MAX_SUBSCRIPTIONS', 1024)</td>
+</tr>
+<tr>
+<td align="center">INTERVAL_SECONDS</td>
+<td align="center">trimmer の実行周期</td>
+<td align="center">define('INTERVAL_SECONDS', 3)</td>
+<td align="center">define('INTERVAL_SECONDS', 3)</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>Redis</h4>
+
+<p>Redis の設定次第では、メモリ使用量を3割以上削減できることがある。TL404 に関連する Redis の設定項目は以下 (redis.conf の設定)。</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">項目</th>
+<th align="center">説明</th>
+<th align="center">デフォルト</th>
+<th align="center">推奨</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">list-max-ziplist-entries</td>
+<td align="center">List が圧縮される場合の要素数の閾値</td>
+<td align="center">512</td>
+<td align="center">1024</td>
+</tr>
+<tr>
+<td align="center">list-max-ziplist-value</td>
+<td align="center">List が圧縮される場合の要素のバイト数の閾値</td>
+<td align="center">64</td>
+<td align="center">64</td>
+</tr>
+<tr>
+<td align="center">set-max-intset-entries</td>
+<td align="center">Set が圧縮される場合の要素数の閾値</td>
+<td align="center">512</td>
+<td align="center">8192</td>
+</tr>
+<tr>
+<td align="center">zset-max-ziplist-entries</td>
+<td align="center">Sorted Set が圧縮される場合の要素数の閾値</td>
+<td align="center">128</td>
+<td align="center">8192</td>
+</tr>
+<tr>
+<td align="center">zset-max-ziplist-value</td>
+<td align="center">Sorted Set が圧縮される場合の要素のバイト数の閾値</td>
+<td align="center">64</td>
+<td align="center">64</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>設定を反映した立ち上げ</li>
+</ul>
+
+
+<pre><code>$ redis-server redis.conf
+</code></pre>
+
+<h3>API 詳細</h3>
+
+<p>それぞれの API について述べる。</p>
+
+<h4>barusu</h4>
+
+<p>全てのデータを削除する。危険なのでデバッグモードのときのみ動作する。さらにパラメータ「barusu」の value が「BARUSU!!!」のときに呪文がはなたれる。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">barusu</td>
+<td align="center">誤って実行するのを防ぐための冗長なパラメータ</td>
+<td align="center">BARUSU!!!</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。データは削除された</td>
+</tr>
+<tr>
+<td align="center">70100</td>
+<td align="center">失敗。barusu はデバッグモードでのみ有効</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>subscribe</h4>
+
+<p>sid が tid を購読する。フォローとも言える。sid と tid が等しい場合は失敗する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tid</td>
+<td align="center">対象のID。正の整数のみ</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid が tid を購読</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40100</td>
+<td align="center">失敗。sid は すでに tid を購読済</td>
+</tr>
+<tr>
+<td align="center">40102</td>
+<td align="center">失敗。sid は、MAX_SUBSCRIPTIONS 以上に購読しようとした</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>unsubscribe</h4>
+
+<p>sid が tid の購読を解除する。アンフォローとも言える。sid と tid が等しい場合は失敗する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tid</td>
+<td align="center">対象のID。正の整数のみ</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid が tid を購読</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40101</td>
+<td align="center">失敗。そもそも sid は tid を購読していない</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_all_subscriptions</h4>
+
+<p>sid が購読している ID をすべて取得する。購読が多くなると時間がかかるので、1000件以上が予測される場合は、後述の get_subscriptions で件数を絞って取得することを推奨する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid が購読している ID が配列として返却</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">60100</td>
+<td align="center">失敗。sid は何も購読していない</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_all_subscribers</h4>
+
+<p>sid を購読している ID をすべて取得する。購読が多くなると時間がかかるので、1000件以上が予測される場合は、後述の get_subscribers で件数を絞って取得することを推奨する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid を購読している ID が配列として返却</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">60101</td>
+<td align="center">失敗。sid は誰にも購読されていない</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_subscriptions</h4>
+
+<p>sid が購読している ID を ofs から cnt だけ取得する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">追加パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ofs</td>
+<td align="center">offset。何番目から取得するか。指定しなければ0番目から取得する</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">cnt</td>
+<td align="center">取得件数。指定しなければ、設定項目の LIMIT_COUNT 件だけ取得する</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid が購読している ID を、ofs番目からcnt件だけ返却。空集合の場合もある</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40003</td>
+<td align="center">失敗。ofs が不正</td>
+</tr>
+<tr>
+<td align="center">40004</td>
+<td align="center">失敗。cnt が不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_subscribers</h4>
+
+<p>sid を購読している ID を ofs から cnt だけ取得する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">追加パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ofs</td>
+<td align="center">offset。何番目から取得するか。指定しなければ0番目から取得する</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">cnt</td>
+<td align="center">取得件数。指定しなければ、設定項目の LIMIT_COUNT 件だけ取得する</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid を購読している ID を、ofs番目からcnt件だけ返却。空集合の場合もある</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40003</td>
+<td align="center">失敗。ofs が不正</td>
+</tr>
+<tr>
+<td align="center">40004</td>
+<td align="center">失敗。cnt が不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部DBでエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_number_of_subscriptions</h4>
+
+<p>購読数を取得。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid の購読数が返却される</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部DBでエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_number_of_subscribers</h4>
+
+<p>購読者数を取得。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid の購読者数が返却される</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部DBでエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>get_timeline</h4>
+
+<p>タイムラインを取得</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tlid</td>
+<td align="center">TL の ID。正の整数のみ</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。sid の購読者数が返却される</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">60200</td>
+<td align="center">失敗。タイムラインが空</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部DBでエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>is_my_subscription</h4>
+
+<p>tid は sid が購読しているかどうか</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tid</td>
+<td align="center">対象のID。正の整数のみ</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。返却値が TRUE ならば購読している、FALSE ならしていない</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>is_my_subscriber</h4>
+
+<p>tid は sid の購読者かどうか</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となるID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tid</td>
+<td align="center">対象のID。正の整数のみ</td>
+<td align="center">2</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。返却値が TRUE ならば購読者、FALSE ならそうではない</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>put</h4>
+
+<p>sid の tlid 番の TL に elm を追加。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となる ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tlid</td>
+<td align="center">TL の ID。正の整数のみ</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">elm</td>
+<td align="center">挿入する要素。MAX_ELEMENT_SIZE で指定された長さ以下であること</td>
+<td align="center">"Hello"</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。挿入された</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>publish</h4>
+
+<p>sid を購読している id の tlid 番の TL に elm を追加。put と異なる点は、put は sid と tlid で指定された TL 一つだけに要素を挿入するのに対して、publish は sid の購読者全員の tlid の TL に要素を挿入する。また、publish は非同期で実行される。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となる ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tlid</td>
+<td align="center">TL の ID。正の整数のみ</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">elm</td>
+<td align="center">挿入する要素。MAX_ELEMENT_SIZE で指定された長さ以下であること</td>
+<td align="center">"Hello"</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。キューに格納され、後に実行される</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>delete_id</h4>
+
+<p>sid の 全ての TL、購読・購読者関係を削除。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となる ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。削除された</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>delete_tl</h4>
+
+<p>sid の tlid番の Timeline を削除。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となる ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tlid</td>
+<td align="center">TL の ID。正の整数のみ</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。キューに格納され、後に実行される</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">60201</td>
+<td align="center">失敗。そのタイムラインは存在しない</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>register_id</h4>
+
+<p>sid を登録して、trimmer の掃除対象とする。登録しないと掃除対象とならず、タイムラインが肥大化してメモリを圧迫する。しかしメモリ限界までは正常に動作する。</p>
+
+<p>推奨としては、新しく id が加わるとき (新規ユーザー作成時など) に、このメソッドを実行して登録することである。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">sid</td>
+<td align="center">基準となる ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。登録された</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40200</td>
+<td align="center">失敗。既にその sid は登録済</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>register_tlid</h4>
+
+<p>tlid を登録して、trimmer の掃除対象とする。登録しなかった場合、trimmer の掃除対象とはならず、メモリが肥大化する。しかしメモリ限界までは正常に動作する。</p>
+
+<p>tlid は、たとえば 0:シングルタイムライン、1:マルチタイムライン、2:お気に入りタイムライン、3:イベントタイムライン、などとして使う。サービス提供者が任意で tlid を設定することで、新たなタイムラインを構築できる。新しく tlid を割り当てる際は、このメソッドで登録すると、掃除対象となってメモリ効率がよくなる。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">tlid</td>
+<td align="center">TL の ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。登録された</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40300</td>
+<td align="center">失敗。既にその tlid は登録済</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h4>unregister_tlid</h4>
+
+<p>tlid の登録を解除。先の register_tlid で登録された tlid を登録解消する。</p>
+
+<ul>
+<li>send</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">パラメータ</th>
+<th align="center">説明</th>
+<th align="center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">tlid</td>
+<td align="center">TL の ID。正の整数のみ</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>receive</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th align="center">返却値</th>
+<th align="center">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">20000</td>
+<td align="center">正常。登録解除された</td>
+</tr>
+<tr>
+<td align="center">40001</td>
+<td align="center">失敗。パラメータが不正</td>
+</tr>
+<tr>
+<td align="center">40301</td>
+<td align="center">失敗。その tlid は登録されていない</td>
+</tr>
+<tr>
+<td align="center">59000</td>
+<td align="center">失敗。内部 DB でエラーが発生</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>ログ</h2>
+
+<ul>
+<li>2014-06-24
+
+<ul>
+<li>このプロジェクトを作成開始</li>
+</ul>
+</li>
+<li>2014-07-28
+
+<ul>
+<li>DB との入出力を DBH.php で一元化</li>
+<li>購読者の保存を、Redis の Set から Sorted Set に変更 (時系列で取得出来るように)</li>
+<li>random で取得できる系のメソッドを廃止し、任意の場所から任意の数だけ取れるメソッドを用意</li>
+<li>RabbitMQ と連携した。worker も作成済</li>
+<li>ドキュメントを改善</li>
+<li>テストを整備</li>
+<li>プロジェクト名を TL404 に決定。以前は mute city という名。</li>
+</ul>
+</li>
+<li>2014-07-29
+
+<ul>
+<li>TL の要素数を監視する、trimmer を作成した</li>
+<li>TL の trimer.php のために、ID と TLID を登録できるようにした。登録したものは掃除される。</li>
+<li>ドキュメントを大きく拡充した</li>
+<li>購読数の制限を設けた</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>

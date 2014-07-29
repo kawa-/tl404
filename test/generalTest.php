@@ -6,11 +6,12 @@
  * これを実行する条件:
  * - mutecity/pub のディレクトリに移動して、localhost:9080 で立ち上げ
  * - Redis をlocalhost:9736 で立ち上げ
+ * - RabbitMQと./worker/distributer.phpを走らせる
  * - lib/bootstrap.php の IS_DEBUG を TRUE にしておくこと。FALSEだとテストが実行されない。
  *
  * 注意点:
- * - データはすべて消える (IS_DEBUG が TRUE の場合)
- * - get_random_subscribers/get_random_subscriptionsはdiscon
+ * - データはすべて消える
+ * - trimmer.phpのテストは、現在のところ省略。というのも一般に時間が掛かるため(一定周期で削除する都合上、、、)
  *
  * テスト項目:
  * - barusu
@@ -28,6 +29,10 @@
  * - publish (+ get_timeline)
  * - delete_id
  * - delete_tl
+ * - register_id
+ * - register_tlid
+ * - unregister_tlid
+ *
  */
 require dirname(__FILE__) . '/../lib/bootstrap4test.php';
 
@@ -142,7 +147,7 @@ class generalTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testPublish() {
-		$text = 'id:' . uniqid();
+		$text = 'id:' . uniqid() . '|sid:1';
 		$res1 = httpPostWithDecode('publish', array('sid' => 1, 'tlid' => 0, 'elm' => $text));
 		$this->assertTrue($res1['result']);
 		sleep(1);
@@ -182,5 +187,42 @@ class generalTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($res1003['result']);
 	}
 
+	public function testRegisterID() {
+		$res1 = httpPostWithDecode('register_id', array('sid' => 1));
+		$res2 = httpPostWithDecode('register_id', array('sid' => 2));
+		$res3 = httpPostWithDecode('register_id', array('sid' => 3));
+		$res4 = httpPostWithDecode('register_id', array('sid' => 4));
+		$this->assertTrue($res1['result']);
+		$this->assertTrue($res2['result']);
+		$this->assertTrue($res3['result']);
+		$this->assertTrue($res4['result']);
+
+		/* 適当にユーザーを登録して、削除出来るか確かめる */
+		httpPostWithDecode('register_id', array('sid' => 999));
+		$res999 = httpPostWithDecode('delete_id', array('sid' => 999));
+		$this->assertTrue($res999['result']);
+	}
+
+	public function testRegisterTLID() {
+		$res1 = httpPostWithDecode('register_tlid', array('tlid' => 0));
+		$res2 = httpPostWithDecode('register_tlid', array('tlid' => 1));
+		$res3 = httpPostWithDecode('register_tlid', array('tlid' => 2));
+		$res4 = httpPostWithDecode('register_tlid', array('tlid' => 3));
+		$this->assertTrue($res1['result']);
+		$this->assertTrue($res2['result']);
+		$this->assertTrue($res3['result']);
+		$this->assertTrue($res4['result']);
+	}
+
+	public function testUnRegisterTLID() {
+		$res1 = httpPostWithDecode('unregister_tlid', array('tlid' => 1));
+		$res2 = httpPostWithDecode('unregister_tlid', array('tlid' => 2));
+		$res3 = httpPostWithDecode('unregister_tlid', array('tlid' => 3));
+		$this->assertTrue($res1['result']);
+		$this->assertTrue($res2['result']);
+		$this->assertTrue($res3['result']);
+	}
+
 }
+
 
