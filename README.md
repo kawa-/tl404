@@ -38,13 +38,14 @@ $ ./sbin/rabbitmq-server
 $ sudo pecl install redis
 # 存在しているか確認
 $ $ php -m | grep redis
-# amqplib のインストール
+# amqplib のインストール (事前に composer の設定が必要)
 $ cd tl404/lib
 $ vi composer.json
 $ cat composer.json
 {
   "require": {
-      "videlalvaro/php-amqplib": "2.2.*"
+	"videlalvaro/php-amqplib": "2.2.*",
+	"phpunit/phpunit": "4.1.*"
   }
 }
 $ composer.phar install
@@ -62,6 +63,17 @@ $ php distributer.php
 $ cd tl404/worker
 $ php trimmer.php
 
+##### テスト #####
+$ cd tl404/test
+$ phpunit generalTest.php 
+PHPUnit 4.1.4 by Sebastian Bergmann.
+
+..................
+
+Time: 1.22 seconds, Memory: 4.00Mb
+
+OK (18 tests, 39 assertions)
+
 ##### 終了 #####
 # RabbitMQ の終了
 $ ./sbin/rabbitmqctl stop
@@ -71,7 +83,7 @@ $ ./sbin/rabbitmqctl stop
 
 ### 一覧
 
-API 一覧を示す。sid = source id, tid = target id, lim = limit, tlid = timeline id, ofs = offset, cnt = count の意味である。tlid については、たとえば 0:ホームタイムライン、1:シングルタイムライン、2:お気に入りタイムライン、3:イベントタイムライン、などと割り当てることを想定している。
+API 一覧を示す。sid = Source ID, tid = Target ID, lim = Limit, tlid = Timeline ID, ofs = Offset, cnt = Count の意味である。tlid については、たとえば 0:ホームタイムライン、1:シングルタイムライン、2:お気に入りタイムライン、3:イベントタイムライン、などと割り当てることを想定している。
 
 |method|動作|必須パラメータ|追加パラメータ|
 |:-:|:-:|:-:|:-:|
@@ -84,13 +96,13 @@ API 一覧を示す。sid = source id, tid = target id, lim = limit, tlid = time
 |get_subscribers|sid を 購読している ID を ofs から cnt 件だけ取得|sid|ofs, cnt|
 |get_number_of_subscriptions|sid の購読数|sid||
 |get_number_of_subscribers|sid の購読者数|sid||
-|get_timeline|sid の tlid 番の Timeline を取得|sid, tlid||
+|get_timeline|sid の tlid 番のタイムラインを取得|sid, tlid||
 |is_my_subscription|tid は sid が購読しているかどうか|sid, tid||
 |is_my_subscriber|tid は sid の購読者かどうか|sid, tid||
-|put|sid の tlid 番の Timeline に elm を追加|sid, tlid, elm||
-|publish|sid を購読している id の tlid 番の Timeline に elm を追加|sid, tlid, elm||
-|delete_id|sid の 全ての Timeline、購読・購読者関係を削除|sid||
-|delete_tl|sid の tlid番の Timeline を削除|sid, tlid||
+|put|sid の tlid 番のタイムラインに elm を追加|sid, tlid, elm||
+|publish|sid を購読している id の tlid 番のタイムラインに elm を追加|sid, tlid, elm||
+|delete_id|sid の 全てのタイムライン、購読・購読者関係を削除|sid||
+|delete_tl|sid の tlid番のタイムラインを削除|sid, tlid||
 |register_id|sid を登録して、掃除対象とする|sid||
 |register_tlid|tlid を登録して、掃除対象とする|tlid||
 |unregister_tlid|tlid の登録を解除|tlid||
@@ -218,7 +230,7 @@ $ curl -d 'method=is_my_subscription&sid=1&tid=2' localhost:9080 | jq "."
   "code": 20000
 }
 
-########## id:1 の tlid:1 番の Timeline に ##########
+########## id:1 の tlid:1 番のタイムラインに ##########
 ##########  elm: "uniqid:53a8f8d8e6453" を追加 (put) ##########
 $ curl -d 'method=put&sid=1&tlid=1&elm=uniqid:53a8f8d8e6453' localhost:9080 | jq "."
 {
@@ -235,7 +247,7 @@ $ curl -d 'method=put&sid=1&tlid=1&elm=uniqid:53a8f8fe0e95c' localhost:9080 | jq
   "code": 20000
 }
 
-########## id:1 の tlid:1 番の Timeline を取得 (get_timeline) ##########
+########## id:1 の tlid:1 番のタイムラインを取得 (get_timeline) ##########
 ########## (先の2回の put が反映されているか確認) ##########
 $ curl -d 'method=get_timeline&sid=1&tlid=1' localhost:9080 | jq "."
 {
@@ -247,7 +259,7 @@ $ curl -d 'method=get_timeline&sid=1&tlid=1' localhost:9080 | jq "."
   "code": 20000
 }
 
-######### id:4 を購読している id群(今回は id:1 のみ) の tlid 番の Timeline に elm を追加 (publish) ##########
+######### id:4 を購読している id群(今回は id:1 のみ) の tlid 番のタイムラインに elm を追加 (publish) ##########
 $ curl -d 'method=publish&sid=4&tlid=1&elm=uniqid:53a8fc605a7cd' localhost:9080 | jq "."
 {
   "result": true,
@@ -255,7 +267,7 @@ $ curl -d 'method=publish&sid=4&tlid=1&elm=uniqid:53a8fc605a7cd' localhost:9080 
   "code": 20000
 }
 
-########## id:1 の tlid:1 番の Timeline を取得 (get_timeline) ##########
+########## id:1 の tlid:1 番のタイムラインを取得 (get_timeline) ##########
 ########## (先の2回の put と1回の publish が反映されているか確認) ##########
 $ curl -d 'method=get_timeline&sid=1&tlid=1' localhost:9080 | jq "."
 {
@@ -268,7 +280,7 @@ $ curl -d 'method=get_timeline&sid=1&tlid=1' localhost:9080 | jq "."
   "code": 20000
 }
 
-######### sid の tlid番の Timeline を削除 (delete_tl) #########
+######### sid の tlid番のタイムラインを削除 (delete_tl) #########
 $ curl -d 'method=delete_tl&sid=1&tlid=1' localhost:9080 | jq "."
 {
   "result": true,
@@ -276,7 +288,7 @@ $ curl -d 'method=delete_tl&sid=1&tlid=1' localhost:9080 | jq "."
   "code": 20000
 }
 
-########## id:1 の tlid:1 番の Timeline を取得 (get_timeline)	##########
+########## id:1 の tlid:1 番のタイムラインを取得 (get_timeline)	##########
 ########## (先の削除が反映されているか確認)	##########
 
 $ curl -d 'method=get_timeline&sid=1&tlid=1' localhost:9080 | jq "."
@@ -285,7 +297,7 @@ $ curl -d 'method=get_timeline&sid=1&tlid=1' localhost:9080 | jq "."
   "code": 60200
 }
 
-########## id:1 の 全ての Timeline、購読・購読者関係を削除 (delete_id) ##########
+########## id:1 の 全てのタイムライン、購読・購読者関係を削除 (delete_id) ##########
 $ curl -d 'method=delete_id&sid=1' localhost:9080 | jq "."
 {
   "result": true,
@@ -361,14 +373,16 @@ $ curl -d 'method=unregister_tlid&tlid=2' localhost:9080 | jq "."
 |:-:|:-:|:-:|:-:|
 |IS_DEBUG|デバッグモードかどうか。デバッグモードだと全削除コマンド(barusu)が使用可能|define('IS_DEBUG', TRUE)|define('IS_DEBUG', FALSE)|
 |LIMIT_COUNT|get_subscriptions/get_subscribers で一度に取得可能な要素の数の制限|define('LIMIT_COUNT', 5)|define('LIMIT_COUNT', 100)|
-|LIMIT_TL_ELMS|一つの TL で保持する要素数。trimmer は、この値を見て TL を定期的にトリミング|define('LIMIT_TL_ELMS', 5)|define('LIMIT_TL_ELMS', 800)|
+|LIMIT_TL_ELMS|一つのタイムラインで保持する要素数。trimmer は、この値を見てタイムラインを定期的にトリミング|define('LIMIT_TL_ELMS', 5)|define('LIMIT_TL_ELMS', 800)|
 |MAX_ELEMENT_SIZE|put や publish の elm 要素の長さの制限|define('MAX_ELEMENT_SIZE', 256)|define('MAX_ELEMENT_SIZE', 64)|
 |MAX_SUBSCRIPTIONS|一つの ID が購読できる要素数|define('MAX_SUBSCRIPTIONS', 10)|define('MAX_SUBSCRIPTIONS', 1024)|
 |INTERVAL_SECONDS|trimmer の実行周期|define('INTERVAL_SECONDS', 3)|define('INTERVAL_SECONDS', 3)|
 
 #### Redis
 
-Redis の設定次第では、メモリ使用量を3割以上削減できることがある。TL404 に関連する Redis の設定項目は以下 (redis.conf の設定)。
+Redis の設定次第では、メモリ使用量を3割以上削減できることがある。TL404 に関連する Redis の設定項目は以下。
+
+- redis.conf の設定
 
 |項目|説明|デフォルト|推奨|
 |:-:|:-:|:-:|:-:|
@@ -443,7 +457,7 @@ sid が tid の購読を解除する。アンフォローとも言える。sid �
 
 |返却値|説明|
 |:-:|:-:|
-|20000|正常。sid が tid を購読|
+|20000|正常。sid が tid を購読解除|
 |40001|失敗。パラメータが不正|
 |40101|失敗。そもそも sid は tid を購読していない|
 |59000|失敗。内部 DB でエラーが発生|
@@ -505,7 +519,7 @@ sid が購読している ID を ofs から cnt だけ取得する。
 
 |返却値|説明|
 |:-:|:-:|
-|20000|正常。sid が購読している ID を、ofs番目からcnt件だけ返却。空集合の場合もある|
+|20000|正常。sid が購読している ID を、ofs 番目から cnt 件だけ返却。空集合の場合もある|
 |40001|失敗。パラメータが不正|
 |40003|失敗。ofs が不正|
 |40004|失敗。cnt が不正|
@@ -581,13 +595,13 @@ sid を購読している ID を ofs から cnt だけ取得する。
 |パラメータ|説明|例|
 |:-:|:-:|:-:|
 |sid|基準となるID。正の整数のみ|1|
-|tlid|TL の ID。正の整数のみ|0|
+|tlid|タイムラインの ID。正の整数のみ|0|
 
 - receive
 
 |返却値|説明|
 |:-:|:-:|
-|20000|正常。sid の購読者数が返却される|
+|20000|正常。タイムラインが返却|
 |40001|失敗。パラメータが不正|
 |60200|失敗。タイムラインが空|
 |59000|失敗。内部DBでエラーが発生|
@@ -635,14 +649,14 @@ tid は sid の購読者かどうか
 
 #### put
 
-sid の tlid 番の TL に elm を追加。
+sid の tlid 番のタイムラインに elm を追加。
 
 - send
 
 |パラメータ|説明|例|
 |:-:|:-:|:-:|
 |sid|基準となる ID。正の整数のみ|1|
-|tlid|TL の ID。正の整数のみ|0|
+|tlid|タイムラインの ID。正の整数のみ|0|
 |elm|挿入する要素。MAX_ELEMENT_SIZE で指定された長さ以下であること|"Hello"|
 
 - receive
@@ -655,14 +669,14 @@ sid の tlid 番の TL に elm を追加。
 
 #### publish
 
-sid を購読している id の tlid 番の TL に elm を追加。put と異なる点は、put は sid と tlid で指定された TL 一つだけに要素を挿入するのに対して、publish は sid の購読者全員の tlid の TL に要素を挿入する。また、publish は非同期で実行される。
+sid を購読している id の tlid 番のタイムラインに elm を追加。put と異なる点は、put は sid と tlid で指定されたタイムライン一つだけに要素を挿入するのに対して、publish は sid の購読者全員の tlid のタイムラインに要素を挿入する。また、publish は非同期で実行される。
 
 - send
 
 |パラメータ|説明|例|
 |:-:|:-:|:-:|
 |sid|基準となる ID。正の整数のみ|1|
-|tlid|TL の ID。正の整数のみ|0|
+|tlid|タイムラインの ID。正の整数のみ|0|
 |elm|挿入する要素。MAX_ELEMENT_SIZE で指定された長さ以下であること|"Hello"|
 
 - receive
@@ -675,7 +689,7 @@ sid を購読している id の tlid 番の TL に elm を追加。put と異�
 
 #### delete_id
 
-sid の 全ての TL、購読・購読者関係を削除。
+sid の全てのタイムライン、購読・購読者関係を削除。
 
 - send
 
@@ -693,20 +707,20 @@ sid の 全ての TL、購読・購読者関係を削除。
 
 #### delete_tl
 
-sid の tlid番の Timeline を削除。
+sid の tlid番のタイムラインを削除。
 
 - send
 
 |パラメータ|説明|例|
 |:-:|:-:|:-:|
 |sid|基準となる ID。正の整数のみ|1|
-|tlid|TL の ID。正の整数のみ|0|
+|tlid|タイムラインの ID。正の整数のみ|0|
 
 - receive
 
 |返却値|説明|
 |:-:|:-:|
-|20000|正常。キューに格納され、後に実行される|
+|20000|正常。削除された|
 |40001|失敗。パラメータが不正|
 |60201|失敗。そのタイムラインは存在しない|
 |59000|失敗。内部 DB でエラーが発生|
@@ -736,13 +750,13 @@ sid を登録して、trimmer の掃除対象とする。登録しないと掃�
 
 tlid を登録して、trimmer の掃除対象とする。登録しなかった場合、trimmer の掃除対象とはならず、メモリが肥大化する。しかしメモリ限界までは正常に動作する。
 
-tlid は、たとえば 0:シングルタイムライン、1:マルチタイムライン、2:お気に入りタイムライン、3:イベントタイムライン、などとして使う。サービス提供者が任意で tlid を設定することで、新たなタイムラインを構築できる。新しく tlid を割り当てる際は、このメソッドで登録すると、掃除対象となってメモリ効率がよくなる。
+冒頭でも述べたように、tlid は、たとえば 0:シングルタイムライン、1:マルチタイムライン、2:お気に入りタイムライン、3:イベントタイムライン、などとして使う。サービス提供者が任意で tlid を設定することで、新たなタイムラインを構築できる。新しく tlid を割り当てる際は、このメソッドで登録すると、掃除対象となってメモリ効率がよくなる。
 
 - send
 
 |パラメータ|説明|例|
 |:-:|:-:|:-:|
-|tlid|TL の ID。正の整数のみ|1|
+|tlid|タイムラインの ID。正の整数のみ|1|
 
 - receive
 
@@ -761,7 +775,7 @@ tlid の登録を解除。先の register_tlid で登録された tlid を登録
 
 |パラメータ|説明|例|
 |:-:|:-:|:-:|
-|tlid|TL の ID。正の整数のみ|1|
+|tlid|タイムラインの ID。正の整数のみ|1|
 
 - receive
 
@@ -785,7 +799,7 @@ tlid の登録を解除。先の register_tlid で登録された tlid を登録
   - テストを整備
   - プロジェクト名を TL404 に決定。以前は mute city という名。
 - 2014-07-29
-  - TL の要素数を監視する、trimmer を作成した
-  - TL の trimer.php のために、ID と TLID を登録できるようにした。登録したものは掃除される。
+  - タイムラインの要素数を監視する、trimmer を作成した
+  - タイムラインの trimer.php のために、ID と TLID を登録できるようにした。登録したものは掃除される。
   - ドキュメントを大きく拡充した
   - 購読数の制限を設けた
